@@ -44,10 +44,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
-        // 'admin-api' => [
-        //     'driver' => 'jwt',
-        //     'provider' => 'admins',
-        // ],
+        'admin-api' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -72,10 +72,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        // 'admins' => [
-        //     'driver' => 'eloquent',
-        //     'model' => App\Models\Admin::class,
-        // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
