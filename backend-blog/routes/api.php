@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\User\UserController;
-use App\Http\Controllers\Api\Admin\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Post\PostController;
+use App\Http\Controllers\Api\User\UserController;
+use App\Http\Controllers\Api\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,11 @@ Route::middleware('checkApiPassword')->group(function(){
     });
 
     // ---------- post -----------
+    Route::post('posts' ,[PostController::class ,'index']); // get all posts
+    Route::prefix('post')->middleware(['auth:user-api' ,'jwtCheckAuth'])->group(function(){
+        Route::post('create' ,[PostController::class ,'store']); // create post
+
+    });
     
     
 });
