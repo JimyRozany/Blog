@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Post\PostController;
+use App\Http\Controllers\Api\Post\CommentController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Admin\AdminController;
 
@@ -47,6 +48,14 @@ Route::middleware('checkApiPassword')->group(function(){
         Route::post('delete' ,[PostController::class ,'destroy']); // delete post
 
     });
-    
+    // ---------- comments -----------
+    Route::post('comments' ,[CommentController::class ,'index']);
+    Route::prefix('comment')->middleware([ 'jwtCheckAuth','auth:user-api'])->group(function(){
+        
+        Route::post('create' ,[CommentController::class ,'store']); // create comment
+        Route::post('update' ,[CommentController::class ,'update']); // update comment
+        Route::post('delete' ,[CommentController::class ,'destroy']); // delete comment
+
+    });
     
 });
