@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
     use ResponseTrait;
+
     // get all posts
     public function index()
     {
@@ -42,7 +43,7 @@ class PostController extends Controller
             
         }else{
             $imageName = $request->file('image')->getClientOriginalExtension(); //real image name
-            $newImageName = time() . $imageName; //change image name
+            $newImageName = time() . '.' . $imageName; //change image name
             $request->file('image')->move(public_path('images/post/') ,$newImageName); // store image with new name in "public/images/post"
 
             try {
@@ -62,20 +63,72 @@ class PostController extends Controller
 
     }
 
-   
-    public function show($id)
+   // get one post by id
+    public function show(Request $request)
     {
-        //
+        $post = Post::find($request->input('post_id'));
+
+        if(!$post){
+            return $this->responseError('post not found' ,404); 
+        }
+        return PostResource::make($post); 
+
+
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $post = Post::find($request->input('post_id'));
+
+        if($post->user_id == Auth::user()->id)
+        {
+            if($request->input('title'))
+            {
+                $post -> title = $request -> input('title');
+                $post -> save();
+            }
+
+            if($request->input('description'))
+            {
+                $post -> description = $request -> input('description');
+                $post -> save();
+            }
+  
+            if($request->input('image'))
+            {
+                $imageName = $request->file('image')->getClientOriginalExtension(); //real image name
+                $newImageName = time() . '.' . $imageName; //change image name
+                $request->file('image')->move(public_path('images/post/') ,$newImageName); // store image with new name in "public/images/post"
+    
+                $post->path_image = 'images/post/' . $newImageName;
+                $post->save();
+            }
+
+            return $this->responseSuccess('post edit successfully' ,200); 
+        }else{
+            return $this->responseError('Editing permission is forbidden' ,403); 
+
+        }
+        
     }
 
    
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $post = Post::find($request->input('post_id'));
+
+        if(!$post){
+            return $this->responseError('post not found' ,404); 
+
+        }
+        if($post->user_id == Auth::user()->id)
+        {
+           $post -> delete();
+           return $this->responseSuccess('post deleted successfully' ,200); 
+
+        }else{
+            return $this->responseError('Editing permission is forbidden' ,403); 
+
+        }
     }
 }

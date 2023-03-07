@@ -40,8 +40,11 @@ Route::middleware('checkApiPassword')->group(function(){
 
     // ---------- post -----------
     Route::post('posts' ,[PostController::class ,'index']); // get all posts
-    Route::prefix('post')->middleware(['auth:user-api' ,'jwtCheckAuth'])->group(function(){
+    Route::prefix('post')->middleware([ 'jwtCheckAuth','auth:user-api'])->group(function(){
         Route::post('create' ,[PostController::class ,'store']); // create post
+        Route::post('show' ,[PostController::class ,'show']); // show post  , get one post by id
+        Route::post('update' ,[PostController::class ,'update']); // update post
+        Route::post('delete' ,[PostController::class ,'destroy']); // delete post
 
     });
     
