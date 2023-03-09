@@ -2,10 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Post\LikeController;
 use App\Http\Controllers\Api\Post\PostController;
-use App\Http\Controllers\Api\Post\CommentController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Admin\AdminController;
+use App\Http\Controllers\Api\Post\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +58,13 @@ Route::middleware('checkApiPassword')->group(function(){
         Route::post('delete' ,[CommentController::class ,'destroy']); // delete comment
 
     });
+
+    // ---------- likes -----------
+    Route::middleware([ 'jwtCheckAuth','auth:user-api'])->group(function(){
+        Route::post('like' ,[LikeController::class ,'like']); // add like
+        // Route::post('like' ,[CommentController::class ,'like']); // remove like
+
+    });
+
     
 });
