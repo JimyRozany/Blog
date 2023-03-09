@@ -30,19 +30,20 @@ Route::middleware('checkApiPassword')->group(function(){
     Route::prefix('user')->group(function(){
         Route::post('register' ,[UserController::class ,'userRegister']);
         Route::post('login' ,[UserController::class ,'userLogin']);
-        Route::post('logout' ,[UserController::class ,'userLogout'])->middleware(['auth:user-api','jwtCheckAuth']);
+        // Route::post('logout' ,[UserController::class ,'userLogout'])->middleware(['auth:user-api','jwtCheckAuth']);
+        Route::post('logout' ,[UserController::class ,'userLogout'])->middleware(['checkAuthAndToken:user-api']);
     });
 
     // ---------- admin -----------
     Route::prefix('admin')->group(function(){
         Route::post('register' ,[AdminController::class ,'adminRegister']);
         Route::post('login' ,[AdminController::class ,'adminLogin']);
-        Route::post('logout' ,[AdminController::class ,'adminLogout'])->middleware(['auth:admin-api','jwtCheckAuth']);
+        Route::post('logout' ,[AdminController::class ,'adminLogout'])->middleware(['checkAuthAndToken:admin-api']);
     });
 
     // ---------- post -----------
     Route::post('posts' ,[PostController::class ,'index']); // get all posts
-    Route::prefix('post')->middleware([ 'jwtCheckAuth','auth:user-api'])->group(function(){
+    Route::prefix('post')->middleware([ 'checkAuthAndToken:user-api'])->group(function(){
         Route::post('create' ,[PostController::class ,'store']); // create post
         Route::post('show' ,[PostController::class ,'show']); // show post  , get one post by id
         Route::post('update' ,[PostController::class ,'update']); // update post
@@ -51,7 +52,7 @@ Route::middleware('checkApiPassword')->group(function(){
     });
     // ---------- comments -----------
     Route::post('comments' ,[CommentController::class ,'index']);
-    Route::prefix('comment')->middleware([ 'jwtCheckAuth','auth:user-api'])->group(function(){
+    Route::prefix('comment')->middleware([ 'checkAuthAndToken:user-api'])->group(function(){
         
         Route::post('create' ,[CommentController::class ,'store']); // create comment
         Route::post('update' ,[CommentController::class ,'update']); // update comment
@@ -60,7 +61,7 @@ Route::middleware('checkApiPassword')->group(function(){
     });
 
     // ---------- likes -----------
-    Route::middleware([ 'jwtCheckAuth','auth:user-api'])->group(function(){
+    Route::middleware([ 'checkAuthAndToken:user-api'])->group(function(){
         Route::post('like' ,[LikeController::class ,'like']); // add like
         // Route::post('like' ,[CommentController::class ,'like']); // remove like
 
