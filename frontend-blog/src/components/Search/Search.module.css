@@ -1,0 +1,27 @@
+.search_container{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    /* border: 10px solid red ; */
+}
+.search_container form input{
+    outline: none;
+    border: none;
+    background: #e5e2d2;
+    height: 1.5rem;
+    border-radius: 20px 0 0 20px;
+    padding-left: 1rem;
+}
+.container_btn{
+    color: var(--light);
+    background-color: var(--main-color-light);
+    border: none;
+    height: 1.6rem;
+    width: 3rem;
+    border-radius: 0 20px 20px 0;
+    transition: var(--transition);
+}
+.container_btn:hover{
+    background-color: var(--main-color-dark) ;
+    cursor: pointer;
+}

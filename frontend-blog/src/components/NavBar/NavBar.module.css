@@ -1,0 +1,35 @@
+/* .navbar_links{
+    display: flex;
+} */
+
+.nav_links{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+
+}
+.nav_links li{
+    list-style: none;
+    margin-left: 60px;
+}
+.nav_links li a{
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--darkest);
+    transition: 0.3s all;
+    /* position: relative; */
+}
+/* .nav_links li a::after,
+.active {
+    position: absolute;
+    content: '';
+    width: 60px;
+    height: 2px;
+    background-color: var(--second-color);
+    top: -10px;
+    left: 0;
+    transition: 0.3s all;
+} */
+.nav_links li a:hover{
+    color: var(--second-color);
+}

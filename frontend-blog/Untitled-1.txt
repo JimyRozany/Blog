@@ -1,0 +1,4 @@
+font family :Ubuntu
+main color :#876cc4
+second color :#f2a90d
+link hover color :#6e5e94
