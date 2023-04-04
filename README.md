@@ -1,2 +1,2 @@
 # Blog
-## Api larvel backend only  ,but waiting frontend .
+## Api laravel backend only  ,but waiting frontend .
