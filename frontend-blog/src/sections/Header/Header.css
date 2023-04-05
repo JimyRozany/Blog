@@ -23,18 +23,18 @@
     transform: translate(-50%, -50%);
 }
 .hero_text h3{
-    color: var(--light);
+    color: var(--second-color);
     font-weight: 400;
     font-size: 50px;
 }
 
 .hero_text p{
     width: 400px;
-    font-weight: 500;
     margin-bottom: 2rem;
+    color: var(--light);
 }
 .hero_text a{
-    color: var(--light);
+    color: var(--main-color-light);
     font-size: 20px;
     border: 2px solid var(--second-color);
     padding: .5rem 2rem; 
@@ -42,6 +42,7 @@
 }
 .hero_text a:hover{
 
+    color: var(--main-color-dark);
     border: 2px solid var(--light);
 
 }
